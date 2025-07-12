@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GreenTex - Global Sustainable Marketplace</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Poppins:wght@400;600&display=swap"
+        rel="stylesheet">
+    <style>
+        /* General Styles - Consistent with your main site */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: #f4fdf4;
+            /* Light green background */
+            color: #333;
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: #2e7d32;
+            /* Green header background */
+            color: #fff;
+            padding: 1.5rem 1rem;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        header h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        header p {
+            font-size: 1rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        h2 {
+            color: #2e7d32;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            font-size: 1.8rem;
+        }
+
+        /* Manufacturer Search Section Styles */
+        .search-section {
+            background-color: #e8f5e9;
+            padding: 2rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            text-align: center;
+        }
+
+        .search-section h3 {
+            color: #2e7d32;
+            margin-bottom: 1.5rem;
+            font-size: 1.6rem;
+        }
+
+        .search-input-group {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .search-input-group div {
+            flex: 1;
+            min-width: 250px;
+            text-align: left;
+        }
+
+        .search-input-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #555;
+        }
+
+        .search-input-group input,
+        .search-input-group select {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .search-button {
+            background-color: #4caf50;
+            /* Green button */
+            color: white;
+            padding: 0.9rem 2rem;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .search-button:hover {
+            background-color: #388e3c;
+        }
+
+        /* Buyer Listing Styles */
+        #buyer-listings {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .buyer-card {
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: left;
+            transition: transform 0.3s ease;
+        }
+
+        .buyer-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .buyer-card h3 {
+            color: #2e7d32;
+            margin-bottom: 0.75rem;
+            font-size: 1.6rem;
+        }
+
+        .buyer-card p {
+            margin-bottom: 0.4rem;
+            color: #555;
+        }
+
+        .buyer-card strong {
+            color: #333;
+        }
+
+        .buyer-tags span {
+            display: inline-block;
+            background-color: #e8f5e9;
+            color: #2e7d32;
+            padding: 0.3rem 0.7rem;
+            border-radius: 5px;
+            font-size: 0.85rem;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .connect-button {
+            display: inline-block;
+            background: #4caf50;
+            /* Green button */
+            color: #fff;
+            padding: 0.75rem 1.25rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 1rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .connect-button:hover {
+            background-color: #388e3c;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 2rem;
+            color: #777;
+            font-style: italic;
+        }
+
+        .last-updated {
+            text-align: center;
+            margin-top: 3rem;
+            font-size: 0.9rem;
+            color: #777;
+        }
+
+        .back-link-container {
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .back-link {
+            display: inline-block;
+            background: #2e7d32;
+            color: #fff;
+            padding: 0.75rem 1.5rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+        }
+
+        .back-link:hover {
+            background-color: #388e3c;
+        }
+
+        footer {
+            background-color: #e8f5e9;
+            text-align: center;
+            padding: 1rem;
+            font-size: 0.9rem;
+            color: #555;
+            margin-top: 3rem;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>GreenTex: Global Sustainable Marketplace</h1>
+        <p>Connecting verified manufacturers with eco-conscious buyers worldwide.</p>
+    </header>
+
+    <div class="container">
+        <div class="search-section">
+            <h3>Find Eco-Conscious Buyers for Your Sustainable Textiles</h3>
+            <div class="search-input-group">
+                <div>
+                    <label for="product-category">Product Category:</label>
+                    <select id="product-category">
+                        <option value="">All Categories</option>
+                        <option value="Organic Cotton">Organic Cotton</option>
+                        <option value="Recycled Polyester">Recycled Polyester</option>
+                        <option value="Hemp Blends">Hemp Blends</option>
+                        <option value="Ethical Dyeing">Ethical Dyeing</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="certification-needed">Certification Required:</label>
+                    <select id="certification-needed">
+                        <option value="">Any Certification</option>
+                        <option value="GOTS">GOTS (Organic)</option>
+                        <option value="Fair Trade">Fair Trade Certified</option>
+                        <option value="OEKO-TEX">OEKO-TEX Standard 100</option>
+                        <option value="GRS">GRS (Recycled)</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="location-pref">Buyer Location Preference:</label>
+                    <select id="location-pref">
+                        <option value="">Any Location</option>
+                        <option value="USA">USA</option>
+                        <option value="EU">European Union</option>
+                        <option value="Asia">Asia</option>
+                    </select>
+                </div>
+            </div>
+            <button class="search-button" id="search-buyers-btn">Search Buyers</button>
+        </div>
+
+        <h2>Available Eco-Conscious Buyers</h2>
+        <div id="buyer-listings">
+            <div class="no-results" id="initial-message">Search or browse to find buyers.</div>
+        </div>
+
+        <p class="last-updated">
+            <small>Simulated buyer data. Real marketplace would feature dynamic listings.</small>
+        </p>
+
+        <div class="back-link-container">
+            <a href="index.html" class="back-link">← Back to Main Site</a>
+        </div>
+    </div>
+
+    <footer>
+        <p>Developed for Infosys Hackathon 2025 | GreenTex &copy; 2025</p>
+    </footer>
+
+    <script>
+        // Simulated Eco-Conscious Buyer Data
+        const ecoConsciousBuyers = [
+            {
+                name: "Sustainable Style Inc.",
+                focus: "Organic cotton apparel, ethical sourcing",
+                certifications: ["GOTS", "Fair Trade"],
+                location: "USA",
+                contact: "info@sustainablestyle.com",
+                minOrder: "1000 units"
+            },
+            {
+                name: "EcoWear EU",
+                focus: "Recycled textiles for sportswear",
+                certifications: ["GRS", "OEKO-TEX"],
+                location: "EU",
+                contact: "sales@ecowear.eu",
+                minOrder: "5000 meters"
+            },
+            {
+                name: "GreenThreads Collective",
+                focus: "Hemp and organic linen home textiles",
+                certifications: ["GOTS"],
+                location: "Asia",
+                contact: "connect@greenthreads.co",
+                minOrder: "200 units"
+            },
+            {
+                name: "Conscious Apparel Co.",
+                focus: "Fair trade certified children's clothing",
+                certifications: ["Fair Trade", "GOTS"],
+                location: "USA",
+                contact: "partnerships@consciousapparel.com",
+                minOrder: "500 units"
+            },
+            {
+                name: "BioFibers Ltd.",
+                focus: "Innovating with bio-based and ethical dyes",
+                certifications: ["OEKO-TEX"],
+                location: "EU",
+                contact: "contact@biofibers.com",
+                minOrder: "Negotiable"
+            },
+            {
+                name: "Pacific Green Textiles",
+                focus: "Specialty recycled polyester yarns",
+                certifications: ["GRS"],
+                location: "Asia",
+                contact: "info@pacificgreen.net",
+                minOrder: "1000 kg"
+            }
+        ];
+
+        const productCategorySelect = document.getElementById('product-category');
+        const certificationNeededSelect = document.getElementById('certification-needed');
+        const locationPrefSelect = document.getElementById('location-pref');
+        const searchBuyersBtn = document.getElementById('search-buyers-btn');
+        const buyerListingsDiv = document.getElementById('buyer-listings');
+        const initialMessage = document.getElementById('initial-message');
+
+        function displayBuyers(buyersToDisplay) {
+            buyerListingsDiv.innerHTML = ''; // Clear previous listings
+
+            if (buyersToDisplay.length === 0) {
+                buyerListingsDiv.innerHTML = '<div class="no-results">No buyers found matching your criteria. Try broadening your search.</div>';
+                return;
+            }
+
+            buyersToDisplay.forEach(buyer => {
+                const buyerCard = document.createElement('div');
+                buyerCard.classList.add('buyer-card');
+
+                let certTagsHtml = buyer.certifications.map(cert => `<span>${cert}</span>`).join('');
+
+                buyerCard.innerHTML = `
+          <h3>${buyer.name}</h3>
+          <p><strong>Focus:</strong> ${buyer.focus}</p>
+          <p><strong>Location:</strong> ${buyer.location}</p>
+          <p><strong>Min. Order:</strong> ${buyer.minOrder}</p>
+          <p><strong>Certifications Prioritized:</strong></p>
+          <div class="buyer-tags">${certTagsHtml}</div>
+          <a href="#" class="connect-button" onclick="alert('Simulated Connect: Contact ${buyer.name} at ${buyer.contact}'); return false;">Connect with Buyer</a>
+        `;
+                buyerListingsDiv.appendChild(buyerCard);
+            });
+        }
+
+        function filterBuyers() {
+            const selectedCategory = productCategorySelect.value.toLowerCase();
+            const selectedCertification = certificationNeededSelect.value.toLowerCase();
+            const selectedLocation = locationPrefSelect.value.toLowerCase();
+
+            const filtered = ecoConsciousBuyers.filter(buyer => {
+                const matchesCategory = selectedCategory === '' || buyer.focus.toLowerCase().includes(selectedCategory);
+                const matchesCertification = selectedCertification === '' || buyer.certifications.some(cert => cert.toLowerCase() === selectedCertification);
+                const matchesLocation = selectedLocation === '' || buyer.location.toLowerCase() === selectedLocation;
+
+                return matchesCategory && matchesCertification && matchesLocation;
+            });
+
+            displayBuyers(filtered);
+        }
+
+        // Event Listeners
+        document.addEventListener('DOMContentLoaded', function () {
+            // Show all buyers by default when the page loads
+            displayBuyers(ecoConsciousBuyers);
+            if (initialMessage) {
+                initialMessage.style.display = 'none'; // Hide initial message if buyers are displayed
+            }
+
+            searchBuyersBtn.addEventListener('click', filterBuyers);
+        });
+    </script>
+</body>
+
+</html>

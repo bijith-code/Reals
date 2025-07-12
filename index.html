@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GreenTex - Sustainable Textile Supply Chain</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: #f4fdf4;
+            color: #333;
+            line-height: 1.6;
+            animation: fadeInBody 1.5s ease-in;
+        }
+
+        @keyframes fadeInBody {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        header {
+            background-color: #2e7d32;
+            color: #fff;
+            padding: 2rem 1rem;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        header p {
+            font-size: 1.1rem;
+        }
+
+        .cta-buttons {
+            margin-top: 1.5rem;
+        }
+
+        .cta-buttons a {
+            background: #fff;
+            color: #2e7d32;
+            padding: 0.75rem 1.5rem;
+            border-radius: 5px;
+            margin: 0.5rem;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-block;
+            transition: transform 0.3s ease, background 0.3s;
+            cursor: pointer;
+        }
+
+        .cta-buttons a:hover {
+            transform: scale(1.05);
+            background: #dcedc8;
+        }
+
+        nav {
+            background-color: #266b2a;
+            padding: 0.5rem 1rem;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        nav ul li {
+            margin: 0 1rem;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            padding: 0.5rem 0;
+            display: block;
+        }
+
+        nav ul li a:hover {
+            color: #dcedc8;
+        }
+
+        section {
+            padding: 2rem 1rem;
+            max-width: 1000px;
+            margin: auto;
+        }
+
+        h2 {
+            color: #2e7d32;
+            margin-bottom: 1rem;
+        }
+
+        .features,
+        .tech-stack,
+        .team {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .footer {
+            background-color: #e8f5e9;
+            text-align: center;
+            padding: 1rem;
+            font-size: 0.9rem;
+        }
+
+        /* ======= Popup & Animations ======= */
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            animation: fadeInOverlay 0.4s ease;
+        }
+
+        @keyframes fadeInOverlay {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .popup {
+            background: #ffffff;
+            padding: 2rem;
+            border-radius: 10px;
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            animation: popupSlideUp 0.4s ease;
+        }
+
+        @keyframes popupSlideUp {
+            from {
+                transform: translateY(40px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .popup h3 {
+            margin-bottom: 1.5rem;
+            color: #2e7d32;
+        }
+
+        .popup .feature-btn {
+            display: block;
+            width: 100%;
+            margin: 0.5rem 0;
+            padding: 0.8rem;
+            background: #2e7d32;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            opacity: 0;
+            transform: scale(0.9);
+            animation: buttonReveal 0.4s forwards;
+        }
+
+        .popup .feature-btn:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .popup .feature-btn:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        .popup .feature-btn:nth-child(4) {
+            animation-delay: 0.6s;
+        }
+
+        @keyframes buttonReveal {
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .popup .close-btn {
+            margin-top: 1.5rem;
+            background: #bbb;
+            color: white;
+            border: none;
+            padding: 0.6rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .popup .close-btn:hover {
+            background: #888;
+        }
+
+        @media (min-width: 600px) {
+
+            .features,
+            .tech-stack,
+            .team {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+    </style>
+</head>
+
+<!-- Announcement Bar -->
+<div class="announcement-bar">
+    <marquee scrollamount="6">🌍 Infosys Hackathon 2025: GreenTex Platform Launched! | 🛠 Platform Maintenance on 15
+        July, 1:00 PM – 4:00 PM IST | 🚀 Join Us in Driving Sustainable Innovation 🌱</marquee>
+      
+</div>
+
+<body>
+    <header>
+        <h1>GreenTex: Sustainable Supply Chain. Global Impact.</h1>
+        <p>Empowering SMEs with real-time tracking, compliance, and global reach.</p>
+        <div class="cta-buttons">
+            <a onclick="openPopup()">Explore the Platform</a>
+        </div>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="#about-project">About</a></li>
+            <li><a href="#key-features">Features</a></li>
+            <li><a href="#tech-stack">Technology</a></li>
+            <li><a href="#sme-help">SME Benefits</a></li>
+            <li><a href="#team-think-tankers">Team</a></li>
+            <li><a href="#contact-us">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Dashboard Popup -->
+    <div class="popup-overlay" id="popupOverlay">
+        <div class="popup">
+            <h3>GreenTex Dashboard</h3>
+            <button class="feature-btn" onclick="location.href='iot.html'">Sustainability Tracking</button>
+            <button class="feature-btn" onclick="location.href='audit.html'">Audit Report</button>
+            <button class="feature-btn" onclick="location.href='market.html'">Global Market</button>
+            <button class="close-btn" onclick="closePopup()">Close</button>
+        </div>
+    </div>
+
+    <section id="about-project">
+        <h2>About the Project</h2>
+        <p>GreenTex was developed for Infosys Hackathon 2025 to support sustainable textile supply chains. Our goal is
+            to help SMEs adopt eco-conscious practices and connect with global markets.</p>
+    </section>
+
+    <section class="features" id="key-features">
+        <h2>Key Features</h2>
+        <ul>
+            <li>Real-time sustainability dashboards (IoT-based)</li>
+            <li>Automated fair trade compliance reports</li>
+            <li>Blockchain for transparency</li>
+            <li>Global marketplace access</li>
+        </ul>
+    </section>
+
+    <section class="tech-stack" id="tech-stack">
+        <h2>Technology Stack</h2>
+        <ul>
+            <li>IoT</li>
+            <li>Blockchain</li>
+            <li>Cloud (AWS)</li>
+            <li>HTML</li>
+            <li>CSS</li>
+        </ul>
+    </section>
+
+    <section id="sme-help">
+        <h2>How It Helps SMEs</h2>
+        <ul>
+            <li>Affordable and easy to adopt</li>
+            <li>Helps meet international regulations</li>
+            <li>Opens export opportunities</li>
+            <li>Enables small manufacturers to participate in sustainable trade with ease</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>UN SDG Alignment</h2>
+        <p>GreenTex aligns with <strong>SDG 12 (Responsible Consumption and Production)</strong> and <strong>SDG 9
+                (Industry, Innovation, and Infrastructure)</strong> by promoting sustainable practices and supporting
+            innovation in textile manufacturing.</p>
+    </section>
+
+    <section class="team" id="Reals">
+        <h2>Team Reals</h2>
+        <ul>
+            <li>Bijith B</li>
+            <li>Shifana Nazar</li>
+            <li>Junite Rose P J</li>
+            <li>Hiba Fathima S</li>
+            <li>Suryadev T K</li>
+        </ul>
+    </section>
+
+    <section id="contact-us">
+        <h2>Contact Us</h2>
+        <p>Connect with us on <a href="https://github.com/bijith-code/GreenTex.git" target="_blank">GitHub</a> or follow
+            us on our social platforms <a href="https://github.com/bijith-code/GreenTex.git"
+                target="_blank">LinkedIn</a></p>
+    </section>
+
+    <footer class="footer">
+        <p>Open-source Project | <a href="https://github.com/bijith-code/GreenTex.git" target="_blank">GitHub Repo</a>
+        </p>
+        <p>Developed for Infosys Hackathon 2025</p>
+    </footer>
+
+    <script>
+        function openPopup() {
+            document.getElementById("popupOverlay").style.display = "flex";
+        }
+
+        function closePopup() {
+            document.getElementById("popupOverlay").style.display = "none";
+        }
+    </script>
+</body>
+
+</html>

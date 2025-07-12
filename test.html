@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GreenTex - Real-time Sustainability Dashboard (Dynamic Demo)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        /* (Same CSS as you provided - no issues found, left unchanged) */
+        /* ... CSS omitted here for brevity ... */
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>GreenTex: Real-time Sustainability Dashboard (Dynamic Demo)</h1>
+        <p>Monitor your environmental impact at a glance with simulated, changing data.</p>
+    </header>
+
+    <div class="container">
+        <div class="company-selector-container">
+            <label for="company-selector">Select Company:</label>
+            <select id="company-selector">
+                <option value="GreenTex Default">GreenTex (Simulated Data)</option>
+                <option value="First Cry">First Cry (Simulated Data)</option>
+                <option value="EcoThreads Co.">EcoThreads Co. (Simulated Data)</option>
+            </select>
+            <button id="browse-company-data">Update Data</button>
+        </div>
+
+        <h2>Current Environmental Metrics</h2>
+        <div class="dashboard-grid">
+            <div class="metric-card" id="water-card">
+                <h3>Water Usage</h3>
+                <div class="metric-value">0%</div>
+                <div class="metric-unit"></div>
+                <div class="progress-bar-container">
+                    <div class="progress-bar-fill" data-target-width="0"></div>
+                </div>
+                <div class="sub-metric"></div>
+            </div>
+
+            <div class="metric-card" id="energy-card">
+                <h3>Energy Consumption</h3>
+                <div class="metric-value">0%</div>
+                <div class="metric-unit"></div>
+                <div class="progress-bar-container">
+                    <div class="progress-bar-fill" data-target-width="0"></div>
+                </div>
+                <div class="sub-metric"></div>
+            </div>
+
+            <div class="metric-card" id="carbon-card">
+                <h3>Carbon Emissions (CO2e)</h3>
+                <div class="metric-value">0%</div>
+                <div class="metric-unit"></div>
+                <div class="progress-bar-container">
+                    <div class="progress-bar-fill" data-target-width="0"></div>
+                </div>
+                <div class="sub-metric"></div>
+            </div>
+
+            <div class="metric-card" id="waste-card">
+                <h3>Waste Generation</h3>
+                <div class="metric-value">0%</div>
+                <div class="metric-unit"></div>
+                <div class="progress-bar-container">
+                    <div class="progress-bar-fill" data-target-width="0"></div>
+                </div>
+                <div class="sub-metric"></div>
+            </div>
+        </div>
+
+        <p class="last-updated">
+            <small id="data-disclaimer">Data simulated locally for demonstration. Updates every 10 seconds.</small>
+        </p>
+
+        <div class="back-link-container">
+            <a href="portal.html" class="back-link">← Back to Main Features</a>
+        </div>
+    </div>
+
+    <footer>
+        <p>Developed for Infosys Hackathon 2025 | GreenTex &copy; 2025</p>
+    </footer>
+
+    <script>
+        const randomValueRanges = {
+            'water': { min: 40, max: 95 },
+            'energy': { min: 50, max: 90 },
+            'carbon': { min: 30, max: 85 },
+            'waste': { min: 45, max: 75 }
+        };
+
+        const companyStaticDetails = {
+            // ... same object as you wrote (not shown here to save space)
+        };
+
+        function getRandomValue(metricType) {
+            const range = randomValueRanges[metricType];
+            if (!range) {
+                console.error("No random range defined for metricType:", metricType);
+                return 0;
+            }
+            return Math.floor(Math.random() * (range.max - range.min + 1)) + range.min;
+        }
+
+        function updateMetricCard(metricType, companyName) {
+            const card = document.getElementById(`${metricType}-card`);
+            const valueElem = card.querySelector('.metric-value');
+            const unitElem = card.querySelector('.metric-unit');
+            const subMetricElem = card.querySelector('.sub-metric');
+            const progressBarFill = card.querySelector('.progress-bar-fill');
+
+            if (!valueElem || !unitElem || !subMetricElem || !progressBarFill) {
+                console.error(`Error: Could not find all necessary elements for ${metricType}-card. Check HTML IDs/classes.`);
+                return;
+            }
+
+            const randomPercentage = getRandomValue(metricType);
+            const staticDetails = companyStaticDetails[companyName][metricType];
+
+            let current = 0;
+            const duration = 1000;
+            const stepTime = Math.max(Math.floor(duration / randomPercentage), 10);
+
+            if (valueElem.counterInterval) clearInterval(valueElem.counterInterval);
+
+            valueElem.counterInterval = setInterval(() => {
+                current++;
+                if (current <= randomPercentage) {
+                    valueElem.textContent = `${current}%`;
+                } else {
+                    clearInterval(valueElem.counterInterval);
+                }
+            }, stepTime);
+
+            unitElem.textContent = staticDetails.unit;
+
+            const updatedBreakdown = staticDetails.breakdown.map(line =>
+                line.replace("[DYNAMIC_VALUE]", randomPercentage)
+            );
+            subMetricElem.innerHTML = updatedBreakdown.map(p => `<p>${p}</p>`).join('');
+
+            progressBarFill.style.width = '0%';
+            progressBarFill.setAttribute('data-target-width', randomPercentage);
+            void progressBarFill.offsetWidth;
+            requestAnimationFrame(() => {
+                progressBarFill.style.width = randomPercentage + '%';
+            });
+        }
+
+        function updateDashboard(companyName) {
+            if (!companyStaticDetails[companyName]) {
+                console.error("Static data configuration not found for company:", companyName);
+                document.getElementById('data-disclaimer').textContent = `Error: Data for "${companyName}" not configured.`;
+                return;
+            }
+
+            updateMetricCard('water', companyName);
+            updateMetricCard('energy', companyName);
+            updateMetricCard('carbon', companyName);
+            updateMetricCard('waste', companyName);
+
+            const now = new Date();
+            document.getElementById('data-disclaimer').textContent =
+                `Data simulated locally for demonstration. Last updated: ${now.toLocaleTimeString()} on ${now.toLocaleDateString()}. Updates every 10 seconds.`;
+        }
+
+        let automaticUpdateIntervalId;
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const companySelector = document.getElementById('company-selector');
+            const browseButton = document.getElementById('browse-company-data');
+
+            function startAutomaticUpdates() {
+                if (automaticUpdateIntervalId) {
+                    clearInterval(automaticUpdateIntervalId);
+                }
+
+                updateDashboard(companySelector.value);
+
+                automaticUpdateIntervalId = setInterval(() => {
+                    updateDashboard(companySelector.value);
+                }, 10000);
+            }
+
+            startAutomaticUpdates();
+
+            browseButton.addEventListener('click', startAutomaticUpdates);
+            companySelector.addEventListener('change', startAutomaticUpdates);
+        });
+    </script>
+</body>
+
+</html>

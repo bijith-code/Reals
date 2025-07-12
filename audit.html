@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GreenTex - Automated Audit Reports</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Poppins:wght@400;600&display=swap"
+        rel="stylesheet">
+    <style>
+        /* General Styles - Consistent with your main site */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: #f4fdf4;
+            /* Light green background */
+            color: #333;
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: #2e7d32;
+            /* Green header background */
+            color: #fff;
+            padding: 1.5rem 1rem;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        header h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        header p {
+            font-size: 1rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        h2 {
+            color: #2e7d32;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            font-size: 1.8rem;
+        }
+
+        /* Styles for Audit Report Cards */
+        .report-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .report-card {
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: left;
+            transition: transform 0.3s ease;
+        }
+
+        .report-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .report-card h3 {
+            color: #2e7d32;
+            margin-bottom: 0.75rem;
+            font-size: 1.5rem;
+        }
+
+        .report-card p {
+            margin-bottom: 0.5rem;
+            color: #555;
+        }
+
+        .report-card strong {
+            color: #333;
+        }
+
+        .report-status {
+            font-weight: 700;
+            padding: 0.3rem 0.7rem;
+            border-radius: 5px;
+            display: inline-block;
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .status-compliant {
+            background-color: #e8f5e9;
+            /* Light green */
+            color: #2e7d32;
+            /* Darker green */
+        }
+
+        .status-minor-issues {
+            background-color: #fffde7;
+            /* Light yellow */
+            color: #fbc02d;
+            /* Orange-yellow */
+        }
+
+        .status-non-compliant {
+            background-color: #ffebee;
+            /* Light red */
+            color: #d32f2f;
+            /* Darker red */
+        }
+
+        .download-button {
+            display: inline-block;
+            background: #4caf50;
+            /* Green button */
+            color: #fff;
+            padding: 0.75rem 1.25rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 1rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .download-button:hover {
+            background-color: #388e3c;
+        }
+
+        .info-section {
+            background-color: #e8f5e9;
+            border-left: 5px solid #2e7d32;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-top: 2rem;
+            color: #333;
+        }
+
+        .info-section p {
+            margin-bottom: 0.5rem;
+        }
+
+        .last-updated {
+            text-align: center;
+            margin-top: 3rem;
+            font-size: 0.9rem;
+            color: #777;
+        }
+
+        .back-link-container {
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .back-link {
+            display: inline-block;
+            background: #2e7d32;
+            color: #fff;
+            padding: 0.75rem 1.5rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+        }
+
+        .back-link:hover {
+            background-color: #388e3c;
+        }
+
+        footer {
+            background-color: #e8f5e9;
+            text-align: center;
+            padding: 1rem;
+            font-size: 0.9rem;
+            color: #555;
+            margin-top: 3rem;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>GreenTex: Automated Compliance & Audit Reports</h1>
+        <p>Ensuring ethical and sustainable practices meet global standards. </p>
+    </header>
+
+    <div class="container">
+        <div class="info-section">
+            <p>GreenTex leverages advanced automation to generate comprehensive audit reports for various global
+                sustainability and fair trade standards. This ensures transparency, accountability, and helps businesses
+                monitor their social and environmental impact effectively. </p>
+            <p>Our platform auto-generates audit reports, streamlining the compliance process for global standards like
+                fair trade practices, and tracks sustainability metrics such as energy, water, waste management, and
+                carbon footprint at each supply chain stage. </p>
+        </div>
+
+        <h2>Generated Audit Reports</h2>
+
+        <div class="report-grid">
+
+            <div class="report-card">
+                <h3>Fair Trade Compliance Audit - Q1 2025</h3>
+                <p><strong>Company:</strong> GreenTex Manufacturing</p>
+                <p><strong>Standard:</strong> Fair Trade Certified™</p>
+                <p><strong>Date Generated:</strong> 2025-04-01</p>
+                <p><strong>Scope:</strong> Labor practices, worker wages, environmental impact.</p>
+                <span class="report-status status-compliant">Compliant</span>
+                <a href="C:\Users\bbiji\Downloads\infosys\Fair Trade Compliance Audit Report.pdf"
+                    class="download-button" download onclick="alert('Your download will start now.')">Download
+                    Report</a>
+            </div>
+
+            <div class="report-card">
+                <h3>Environmental Management Audit - April 2025</h3>
+                <p><strong>Company:</strong> First Cry</p>
+                <p><strong>Standard:</strong> ISO 14001 Equivalent</p>
+                <p><strong>Date Generated:</strong> 2025-05-10</p>
+                <p><strong>Scope:</strong> Water, energy, emissions, waste management. </p>
+                <span class="report-status status-minor-issues">Minor Issues Detected</span>
+                <a href="C:\Users\bbiji\Downloads\infosys\Environmental Management Audit.pdf"
+                    class="download-button" download onclick="alert('Your download will start now.')">Download
+                    Report</a>
+            </div>
+
+            <div class="report-card">
+                <h3>Social Accountability Audit - H2 2024</h3>
+                <p><strong>Company:</strong> EcoThreads Co.</p>
+                <p><strong>Standard:</strong> SA8000 (Social Accountability)</p>
+                <p><strong>Date Generated:</strong> 2025-01-15</p>
+                <p><strong>Scope:</strong> Ethical labor practices, working conditions. </p>
+                <span class="report-status status-compliant">Compliant</span>
+                <a href="C:\Users\bbiji\Downloads\infosys\Social Accountability Audit.pdf"
+                    class="download-button" download onclick="alert('Your download will start now.')">Download
+                    Report</a>
+            </div>
+
+            <div class="report-card">
+                <h3>Carbon Footprint Assessment - May 2025</h3>
+                <p><strong>Company:</strong> GreenTex Manufacturing</p>
+                <p><strong>Standard:</strong> GHG Protocol Aligned</p>
+                <p><strong>Date Generated:</strong> 2025-06-05</p>
+                <p><strong>Scope:</strong> Carbon footprint across supply chain stages. </p>
+                <span class="report-status status-compliant">Compliant</span>
+                <a href="C:\Users\bbiji\Downloads\infosys\Carbon Footprint Assessment.pdf"
+                    class="download-button" download onclick="alert('Your download will start now.')">Download
+                    Report</a>
+            </div>
+
+        </div>
+
+        <p class="last-updated">
+            <small>These are simulated audit reports for demonstration purposes.</small>
+        </p>
+
+        <div class="back-link-container">
+            <a href="C:\Users\bbiji\Downloads\infosys\home.html" class="back-link">← Back to Main Site</a>
+        </div>
+    </div>
+
+    <footer>
+        <p>Developed for Infosys Hackathon 2025 | GreenTex &copy; 2025</p>
+    </footer>
+</body>
+
+</html>

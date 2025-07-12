@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GreenTex - Real-time Sustainability Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    /* General Styles - Consistent with your main site */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', sans-serif;
+    }
+    body {
+      background-color: #f4fdf4; /* Light green background */
+      color: #333;
+      line-height: 1.6;
+    }
+    header {
+      background-color: #2e7d32; /* Green header background */
+      color: #fff;
+      padding: 1.5rem 1rem;
+      text-align: center;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+    header h1 {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+    header p {
+      font-size: 1rem;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+    h2 {
+      color: #2e7d32;
+      margin-bottom: 1.5rem;
+      text-align: center;
+      font-size: 1.8rem;
+    }
+    /* New styles for company selector */
+    .company-selector-container {
+      text-align: center;
+      margin-bottom: 2rem;
+      background-color: #e8f5e9;
+      padding: 1.5rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+    .company-selector-container label {
+      font-size: 1.1rem;
+      margin-right: 1rem;
+      color: #2e7d32;
+      font-weight: 600;
+    }
+    .company-selector-container select,
+    .company-selector-container button {
+      padding: 0.75rem 1.25rem;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+      margin: 0.5rem;
+    }
+    .company-selector-container select {
+      background-color: #fff;
+      cursor: pointer;
+      min-width: 200px;
+    }
+    .company-selector-container button {
+      background-color: #4caf50; /* Green button */
+      color: white;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    .company-selector-container button:hover {
+      background-color: #388e3c;
+    }
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+    .metric-card {
+      background-color: #fff;
+      border-radius: 10px;
+      padding: 1.5rem;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
+    .metric-card:hover {
+      transform: translateY(-5px);
+    }
+    .metric-card h3 {
+      color: #4caf50; /* A slightly lighter green for metric titles */
+      margin-bottom: 1rem;
+      font-size: 1.4rem;
+    }
+    .metric-value {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #2e7d32;
+      margin-bottom: 0.5rem;
+    }
+    .metric-unit {
+      font-size: 1.1rem;
+      color: #666;
+      margin-bottom: 1.5rem;
+    }
+    .progress-bar-container {
+      background-color: #e0e0e0;
+      border-radius: 5px;
+      height: 15px;
+      margin-bottom: 0.5rem;
+      overflow: hidden; /* Ensures the fill stays within bounds */
+    }
+    .progress-bar-fill {
+      height: 100%;
+      background-color: #7cb342; /* A vibrant green for progress */
+      width: 0%; /* Initial width for animation */
+      border-radius: 5px;
+      transition: width 1.5s ease-out; /* Animation duration and timing function */
+    }
+    .sub-metric {
+      font-size: 0.95rem;
+      color: #555;
+      margin-top: 1rem;
+      text-align: left;
+      border-top: 1px solid #eee;
+      padding-top: 0.75rem;
+    }
+    .sub-metric p {
+        margin-bottom: 0.5rem;
+    }
+    .last-updated {
+      text-align: center;
+      margin-top: 3rem;
+      font-size: 0.9rem;
+      color: #777;
+    }
+    .back-link-container {
+      text-align: center;
+      margin-top: 2rem;
+    }
+    .back-link {
+      display: inline-block;
+      background: #2e7d32;
+      color: #fff;
+      padding: 0.75rem 1.5rem;
+      border-radius: 5px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: background-color 0.3s ease;
+    }
+    .back-link:hover {
+      background-color: #388e3c;
+    }
+    footer {
+      background-color: #e8f5e9;
+      text-align: center;
+      padding: 1rem;
+      font-size: 0.9rem;
+      color: #555;
+      margin-top: 3rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>GreenTex: Real-time Sustainability Dashboard</h1>
+    <p>Monitor your environmental impact at a glance.</p>
+  </header>
+
+  <div class="container">
+    <div class="company-selector-container">
+      <label for="company-selector">Select Company:</label>
+      <select id="company-selector">
+        <option value="GreenTex Default">GreenTex (Default Data)</option>
+        <option value="First Cry">First Cry</option>
+        <option value="EcoThreads Co.">EcoThreads Co.</option>
+        </select>
+      <button id="browse-company-data">Browse Data</button>
+    </div>
+
+    <h2>Current Environmental Metrics</h2>
+    <div class="dashboard-grid">
+
+      <div class="metric-card" id="water-card">
+        <h3>Water Usage</h3>
+        <div class="metric-value">0%</div> <div class="metric-unit"></div>
+        <div class="progress-bar-container">
+          <div class="progress-bar-fill" data-target-width="0"></div> </div>
+        <div class="sub-metric"></div>
+      </div>
+
+      <div class="metric-card" id="energy-card">
+        <h3>Energy Consumption</h3>
+        <div class="metric-value">0%</div> <div class="metric-unit"></div>
+        <div class="progress-bar-container">
+          <div class="progress-bar-fill" data-target-width="100"></div> </div>
+        <div class="sub-metric"></div>
+      </div>
+
+      <div class="metric-card" id="carbon-card">
+        <h3>Carbon Emissions (CO2e)</h3>
+        <div class="metric-value">0%</div> <div class="metric-unit"></div>
+        <div class="progress-bar-container">
+          <div class="progress-bar-fill" data-target-width="0"></div> </div>
+        <div class="sub-metric"></div>
+      </div>
+
+      <div class="metric-card" id="waste-card">
+        <h3>Waste Generation</h3>
+        <div class="metric-value">0%</div> <div class="metric-unit"></div>
+        <div class="progress-bar-container">
+          <div class="progress-bar-fill" data-target-width="0"></div> </div>
+        <div class="sub-metric"></div>
+      </div>
+
+    </div>
+
+    <p class="last-updated">
+      <small id="data-disclaimer">Data simulated for demonstration. Real-time data requires IoT and backend integration.</small>
+    </p>
+
+    <div class="back-link-container">
+      <a href="index.html" class="back-link">← Back to Main Site</a>
+    </div>
+  </div>
+
+  <footer>
+    <p>Developed for Infosys Hackathon 2025 | GreenTex &copy; 2025</p>
+  </footer>
+
+<script>
+  // Simulated data for different companies
+  const companyData = {
+    "GreenTex Default": {
+      water: {
+        value: 75, unit: "of daily target (1500 Liters)",
+        breakdown: [
+          "<strong>Company Total:</strong> 1500 Liters today",
+          "<strong>Production Unit A:</strong> 720 Liters (48%)",
+          "<strong>Dyeing Dept B:</strong> 450 Liters (30%)",
+          "<strong>Finishing Dept C:</strong> 330 Liters (22%)"
+        ]
+      },
+      energy: {
+        value: 82, unit: "of daily target (2500 kWh)",
+        breakdown: [
+          "<strong>Company Total:</strong> 2050 kWh today",
+          "<strong>Machinery Line 1:</strong> 900 kWh (44%)",
+          "<strong>Lighting & HVAC:</strong> 600 kWh (29%)",
+          "<strong>Office Area:</strong> 550 kWh (27%)"
+        ]
+      },
+      carbon: {
+        value: 68, unit: "of monthly target (500 kg)",
+        breakdown: [
+          "<strong>Company Total:</strong> 340 kg this month",
+          "<strong>Logistics (Transport):</strong> 150 kg (44%)",
+          "<strong>Production Processes:</strong> 120 kg (35%)",
+          "<strong>Waste Incineration:</strong> 70 kg (21%)"
+        ]
+      },
+      waste: {
+        value: 55, unit: "of weekly target (200 kg)",
+        breakdown: [
+          "<strong>Company Total:</strong> 110 kg this week",
+          "<strong>Fabric Scraps:</strong> 60 kg (55%)",
+          "<strong>Packaging Waste:</strong> 30 kg (27%)",
+          "<strong>General Office Waste:</strong> 20 kg (18%)"
+        ]
+      }
+    },
+
+    "First Cry": {
+      water: {
+        value: 40, unit: "of daily target (800 Liters)",
+        breakdown: [
+          "<strong>Company Total:</strong> 320 Liters today",
+          "<strong>Warehouse A:</strong> 160 Liters (50%)",
+          "<strong>Office Block:</strong> 80 Liters (25%)",
+          "<strong>Packaging Unit:</strong> 80 Liters (25%)"
+        ]
+      },
+      energy: {
+        value: 65, unit: "of daily target (1500 kWh)",
+        breakdown: [
+          "<strong>Company Total:</strong> 975 kWh today",
+          "<strong>Retail Stores:</strong> 500 kWh (51%)",
+          "<strong>Logistics Hub:</strong> 300 kWh (31%)",
+          "<strong>Online Operations:</strong> 175 kWh (18%)"
+        ]
+      },
+      carbon: {
+        value: 80, unit: "of monthly target (300 kg)",
+        breakdown: [
+          "<strong>Company Total:</strong> 240 kg this month",
+          "<strong>Deliveries:</strong> 180 kg (75%)",
+          "<strong>Electricity Use:</strong> 40 kg (17%)",
+          "<strong>Business Travel:</strong> 20 kg (8%)"
+        ]
+      },
+      waste: {
+        value: 70, unit: "of weekly target (150 kg)",
+        breakdown: [
+          "<strong>Company Total:</strong> 105 kg this week",
+          "<strong>Packaging Waste:</strong> 70 kg (67%)",
+          "<strong>Office Waste:</strong> 25 kg (24%)",
+          "<strong>Return Goods Waste:</strong> 10 kg (9%)"
+        ]
+      }
+    },
+
+    "EcoThreads Co.": {
+      water: {
+        value: 90, unit: "of daily target (500 Liters)",
+        breakdown: [
+          "<strong>Company Total:</strong> 450 Liters today",
+          "<strong>Organic Dyeing:</strong> 200 Liters (44%)",
+          "<strong>Finishing & Washing:</strong> 180 Liters (40%)",
+          "<strong>Recycling Process:</strong> 70 Liters (16%)"
+        ]
+      },
+      energy: {
+        value: 70, unit: "of daily target (1000 kWh)",
+        breakdown: [
+          "<strong>Company Total:</strong> 700 kWh today",
+          "<strong>Solar Power:</strong> 400 kWh (57%)",
+          "<strong>Grid Energy:</strong> 300 kWh (43%)"
+        ]
+      },
+      carbon: {
+        value: 30, unit: "of monthly target (100 kg)",
+        breakdown: [
+          "<strong>Company Total:</strong> 30 kg this month",
+          "<strong>Renewable Energy Offset:</strong> 0 kg (0%)",
+          "<strong>Logistics:</strong> 20 kg (67%)",
+          "<strong>Operations:</strong> 10 kg (33%)"
+        ]
+      },
+      waste: {
+        value: 45, unit: "of weekly target (100 kg)",
+        breakdown: [
+          "<strong>Company Total:</strong> 45 kg this week",
+          "<strong>Textile Waste Recycling:</strong> 30 kg (67%)",
+          "<strong>General Waste:</strong> 10 kg (22%)",
+          "<strong>Compostable Packaging:</strong> 5 kg (11%)"
+        ]
+      }
+    }
+  };
+
+  // Helper function to animate a metric card
+  function updateMetricCard(metricType, dataForMetric) {
+    const card = document.getElementById(`${metricType}-card`);
+    const valueElem = card.querySelector('.metric-value');
+    const unitElem = card.querySelector('.metric-unit');
+    const subMetricElem = card.querySelector('.sub-metric');
+    const progressBarFill = card.querySelector('.progress-bar-fill');
+
+    // Animate number counter
+    let current = 0;
+    const target = dataForMetric.value;
+    const duration = 1000;
+    const stepTime = Math.max(Math.floor(duration / target), 10);
+
+    const counter = setInterval(() => {
+      current++;
+      valueElem.textContent = `${current}%`;
+      if (current >= target) clearInterval(counter);
+    }, stepTime);
+
+    // Update unit and breakdown
+    unitElem.textContent = dataForMetric.unit;
+    subMetricElem.innerHTML = dataForMetric.breakdown.map(p => `<p>${p}</p>`).join('');
+
+    // Animate bar width
+    progressBarFill.style.width = '0%';
+    void progressBarFill.offsetWidth; // Force reflow
+    requestAnimationFrame(() => {
+      progressBarFill.style.width = `${dataForMetric.value}%`;
+    });
+  }
+
+  // Main function to update the dashboard with selected company
+  function updateDashboard(companyName) {
+    const data = companyData[companyName];
+    if (!data) {
+      console.error("Data not found for company:", companyName);
+      return;
+    }
+
+    updateMetricCard('water', data.water);
+    updateMetricCard('energy', data.energy);
+    updateMetricCard('carbon', data.carbon);
+    updateMetricCard('waste', data.waste);
+  }
+
+  // Event Listeners
+  document.addEventListener('DOMContentLoaded', function () {
+    const companySelector = document.getElementById('company-selector');
+    const browseButton = document.getElementById('browse-company-data');
+
+    // Initial load
+    updateDashboard(companySelector.value);
+
+    // On button click
+    browseButton.addEventListener('click', function () {
+      updateDashboard(companySelector.value);
+    });
+  });
+</script>
+</body>
+</html>
